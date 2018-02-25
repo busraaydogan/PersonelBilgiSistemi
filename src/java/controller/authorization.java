@@ -26,6 +26,7 @@ public class authorization {
     public ResultSet UserPerms;
     public String username, password;
     
+    
     public authorization(){
         username="";
         password="";
