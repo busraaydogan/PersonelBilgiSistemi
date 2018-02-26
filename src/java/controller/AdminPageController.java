@@ -28,7 +28,7 @@ public class AdminPageController {
             ConnectionClass connection = new ConnectionClass();
             PreparedStatement stm = (PreparedStatement) connection.connection.prepareStatement("SELECT PInfoId, EName, ESurname FROM PesonalInfo WHERE 	CitizensShipNumber = ?");
             stm.setString(1, CTNumber);
-          ResultSet rs = stm.executeQuery();
+            ResultSet rs = stm.executeQuery();
           while(rs.next())
           {
               adminpage.PersonalId = rs.getInt("PInfoId");
