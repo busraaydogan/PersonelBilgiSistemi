@@ -50,7 +50,7 @@ public class authorization {
                     info.UserType = rs.getInt(1);
                     info.UserId = rs.getInt(2);
                     info.PersonInfoId = rs.getInt(3);
-                    stm = (PreparedStatement) connect.connection.prepareStatement("SELECT P.PermName, P.PermLink PemVisual, PermSet FROM UserPerms UP  " 
+                    stm = (PreparedStatement) connect.connection.prepareStatement("SELECT P.PermName, P.PermLink, PermVisual, PermSet FROM UserPerms UP  " 
                             + "INNER JOIN Perms P ON P.PermId = UP.PermissionId "
                             + "WHERE UserIdNum=?");
                     stm.setInt(1, info.PersonInfoId);
