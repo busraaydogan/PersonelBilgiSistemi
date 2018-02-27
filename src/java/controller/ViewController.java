@@ -6,10 +6,19 @@
 package controller;
 
 import Entitiy.LoginUserInfo;
+import Util.ConnectionClass;
+import com.mysql.jdbc.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collection;
 import static java.util.Collections.list;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -43,4 +52,6 @@ public class ViewController {
         }
         return result;
     }
+   
+
 }
