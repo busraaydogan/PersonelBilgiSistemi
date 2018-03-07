@@ -21,7 +21,31 @@ public class LoginUserInfo {
     public int UserType;
     public int UserId;
     public ResultSet UserPerms;
-    public String username, password;
+    public String username, password, Name, Surname, CitizenNumber;
+
+    public String getCitizenNumber() {
+        return CitizenNumber;
+    }
+
+    public void setCitizenNumber(String CitizenNumber) {
+        this.CitizenNumber = CitizenNumber;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+
+    public String getSurname() {
+        return Surname;
+    }
+
+    public void setSurname(String Surname) {
+        this.Surname = Surname;
+    }
     
     public boolean isAuthStatus() {
         return authStatus;

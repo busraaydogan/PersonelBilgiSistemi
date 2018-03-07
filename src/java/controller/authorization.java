@@ -39,7 +39,9 @@ public class authorization {
         String result = "index";
         try{
              ConnectionClass connect = new ConnectionClass();
-            PreparedStatement  stm = (PreparedStatement) connect.connection.prepareStatement("SELECT UserType, UserId, PersonId FROM Users WHERE Username=? AND Password=?");
+            PreparedStatement  stm = (PreparedStatement) connect.connection.prepareStatement("SELECT UserType, UserId, PersonId, EName, ESurname, CitizensShipNumber FROM Users U "
+                    + "inner join PErsonalInfo PI on PI.PInfoId = U.PersonId "
+                    + " WHERE Username=? AND Password=?");
             stm.setString(1,info.username);
             stm.setString(2,info.password);
             ResultSet rs = stm.executeQuery();
@@ -50,13 +52,15 @@ public class authorization {
                     info.UserType = rs.getInt(1);
                     info.UserId = rs.getInt(2);
                     info.PersonInfoId = rs.getInt(3);
+                    info.Name = rs.getString(4);
+                    info.Surname = rs.getString(5);
+                    info.CitizenNumber = rs.getString(6);
                     stm = (PreparedStatement) connect.connection.prepareStatement("SELECT P.PermName, P.PermLink, PermVisual, PermSet FROM UserPerms UP  " 
                             + "INNER JOIN Perms P ON P.PermId = UP.PermissionId "
                             + "WHERE UserIdNum=?");
                     stm.setInt(1, info.PersonInfoId);
                     info.UserPerms = stm.executeQuery();
-       
-                    result =  "main";
+                    result =  "Sablon";
                     System.out.println("Giriş");
             }
         } catch (Exception ex)

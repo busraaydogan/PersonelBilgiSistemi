@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 /**
@@ -58,12 +59,11 @@ import javax.faces.model.SelectItem;
         public void setSelectedDistrict(String SelectedDistrict) {
             this.SelectedDistrict = SelectedDistrict;
         }
-        
         public List<SelectItem> getDistricts(){
             List<SelectItem> result = new ArrayList<SelectItem>();
             try{
+                System.out.println("TEST S:" + SelectedCity);
              ConnectionClass connect = new ConnectionClass();
-             System.out.println("TEST S:" + SelectedCity);
              if (SelectedCity != ""){
                   PreparedStatement  stm = (PreparedStatement) connect.connection.prepareStatement("SELECT DistrictName FROM DistrictTable DT"
                           + " INNER JOIN CityTable ct ON ct.CityName=? WHERE DT.City=ct.CityId   order by Districtname ASC");

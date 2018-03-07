@@ -31,6 +31,7 @@ public class ViewController {
     public String view(LoginUserInfo user)
     {
         String result = "";
+        System.out.println("R: " + result);
         try{
                 LinkedList<String> permNames = new LinkedList<String>();
                 LinkedList<String> permLink = new LinkedList<String>();
@@ -38,13 +39,13 @@ public class ViewController {
             {
                 permNames.add(user.UserPerms.getString("PermName"));
                 permLink.add(user.UserPerms.getString("PermLink"));
-            }
+            } 
              
              for(int i = 0; i< permNames.size(); i++)
              {
-                 result+="<br> <h:link value='" +permNames.get(i) + "' outcome='" + permLink.get(i) +"' /> </br>" ;
-             }
-              System.out.println(result);
+                 result+="<h:link  styleClass=\"Menu1\" value='" +permNames.get(i) + "' outcome='" + permLink.get(i) +"/> <br></br>" ;
+             } 
+              System.out.println("R: " + result);
         }     
         catch(Exception ex)
         {

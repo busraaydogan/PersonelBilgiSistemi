@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" 
+     xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"  >
+<head>
+<meta charset="utf-8"/>
+<title>Personel Takip Sistemi</title>
+	<link rel="stylesheet" type="text/css" href="stil.css"/>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+        <style>
+            .Menu1{
+                color:#F7E9E9;
+                font-family:"Tw Cen MT";
+                 height:50px;
+                 text-align:center;
+            }
+            
+        </style>
+</head>
+<body>
+	<div class="sablon">
+	<div class="banner">
+            <a>PERSONEL BİLGİ SİSTEMİ</a>
+            <div class="logo">
+                    <table style="font-size:15px;">
+                        <tr>
+                            <td align="right">
+                                <span padding-right="5px">Sayin: </span> 
+                            </td>
+                            <td align="left">
+                                <span padding-right="5px"> #{auth.info.name} #{auth.info.surname} </span>
+                            </td>
+                            <td rowspan="3" align="right">
+                                <img src="img\user.jpg" width="100" height="110" style="margin-left:15px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right"> 
+                                <span padding-right="5px" word-wrap="normal"> Kullanıcı Adı: </span>
+                            </td>
+                            
+                            <td align="left" >
+                                <span padding-right="5px"> #{auth.info.username} </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right"> 
+                                <span padding-right="5px"> T.C Kimlik No: </span>
+                            </td>
+                            <td align="left">
+                                <span padding-right="5px"> #{auth.info.citizenNumber} </span>
+                            </td>
+                        </tr>
+                    </table>
+            </div>
+        </div>
+                                
+                                
+                 <div class="menu" >             
+		   <h:dataTable border="1" width="200" bgcolor="SteelBlue">
+			    <h:column>
+                                #{viewController.view(auth.info)}
+                            </h:column>
+		   </h:dataTable>
+                 </div> 
+		<div class="alan"></div>
+	</div>
+</body>
+</html>

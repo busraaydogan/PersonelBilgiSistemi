@@ -4,10 +4,14 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE HTML>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
+<!DOCTYPE HTML<html lang="en" 
+     xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"  >
+    >>
+<html lang="en" 
+     xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"  >
+    >
     <head>
         <title>Ana Sayfa</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -24,16 +28,10 @@ and open the template in the editor.
         <div style="header">
             <a>  Hoş geldiniz,  #{auth.info.username} </a>
             <h:outputText value="#{viewController.view(auth.info)}" escape="false"/>
-            <h:selectOneMenu id="City" value="#{City.selectedCity}" onclick="reloadDistricts()">
+            <h:selectOneMenu id="City" value="#{City.selectedCity}">
+                <p:ajax update="District"></p:ajax>
                 <f:selectItems value="#{City.citys}" />
             </h:selectOneMenu> 
-            <script>
-            function reloadDistricts(){
-            var container = document.getElementById("DivDistrict");
-            var content = container.innerHTML;
-            container.innerHTML=""; 
-            container.innerHTML= content;  
-            }</script>
             <div id="DivDistrict">
             <h:selectOneMenu id="District" value="#{City.selectedDistrict}">
                 <f:selectItems value="#{City.districts}" />

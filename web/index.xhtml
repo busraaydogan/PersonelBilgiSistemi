@@ -17,13 +17,15 @@
     <h:body>
         <center>
             <div>
-            <h:form>
-                Kullanıcı Adı : <h:inputText value="#{auth.info.username}" required="true"></h:inputText> <br> </br>
-                Şifre : <h:inputSecret value="#{auth.info.password}" required="true"></h:inputSecret> <br> </br>
-                <h:commandButton value='GİRİŞ' type="submit" action="#{auth.getAuthorized()}" ></h:commandButton>
-            </h:form>
+                <h:form>
+                    Kullanıcı Adı : <h:inputText value="#{auth.info.username}" required="true"></h:inputText> <br> </br>
+                    Şifre : <h:inputSecret value="#{auth.info.password}" required="true"></h:inputSecret> <br> </br>
+                    <h:commandButton value='GİRİŞ' type="submit" action="#{auth.getAuthorized()}" ></h:commandButton>
+                </h:form>
             </div>
         </center>
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
     </h:body>
 </html>
 
