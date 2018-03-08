@@ -26,9 +26,11 @@ public class authorization {
     }
    
    public LoginUserInfo info;    
+   public ViewController view;
    
     public authorization(){
         info = new LoginUserInfo();
+        view = new ViewController();
         info.username="";
         info.password="";
     }
@@ -61,13 +63,17 @@ public class authorization {
                     stm.setInt(1, info.PersonInfoId);
                     info.UserPerms = stm.executeQuery();
                     result =  "Sablon";
-                    System.out.println("Giriş");
+                    view.view(info);
             }
         } catch (Exception ex)
         {
            ex.printStackTrace();
         }
         return result;
+    }
+
+    public ViewController getView() {
+        return view;
     }
 
 }

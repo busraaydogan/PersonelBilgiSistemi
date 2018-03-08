@@ -6,6 +6,7 @@
 package controller;
 
 import Entitiy.LoginUserInfo;
+import Entitiy.Perms;
 import Util.ConnectionClass;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,35 +25,37 @@ import javax.faces.model.SelectItem;
  *
  * @author Casper
  */
-@ManagedBean(name="viewController")
+@ManagedBean(name = "viewController")
 @SessionScoped
 public class ViewController {
-    
-    public String view(LoginUserInfo user)
-    {
-        String result = "";
-        System.out.println("R: " + result);
-        try{
-                LinkedList<String> permNames = new LinkedList<String>();
-                LinkedList<String> permLink = new LinkedList<String>();
-             while(user.UserPerms.next())
-            {
-                permNames.add(user.UserPerms.getString("PermName"));
-                permLink.add(user.UserPerms.getString("PermLink"));
-            } 
-             
-             for(int i = 0; i< permNames.size(); i++)
-             {
-                 result+="<h:link  styleClass=\"Menu1\" value='" +permNames.get(i) + "' outcome='" + permLink.get(i) +"/> <br></br>" ;
-             } 
-              System.out.println("R: " + result);
-        }     
-        catch(Exception ex)
-        {
-           ex.printStackTrace();
-        }
-        return result;
+
+    LinkedList<Perms> perm;
+
+    public LinkedList<Perms> getPerms() {
+        return perm;
     }
+
    
+    public ViewController() {
+        perm = new LinkedList<Perms>();
+    }
+
+    public void view(LoginUserInfo user) {
+        try {
+            perm.clear();
+            while (user.UserPerms.next()) {
+                Perms perm1 = new Perms(); 
+                
+                perm1.setPermName(user.UserPerms.getString("PermName"));
+                perm1.setPermLink(user.UserPerms.getString("PermLink"));
+                perm1.setPermVisual(user.UserPerms.getBoolean("PermVisual"));
+                perm1.setPermSet(user.UserPerms.getBoolean("PermSet"));
+                perm.add(perm1);
+            }
+           
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
 }
