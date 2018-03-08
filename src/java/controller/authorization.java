@@ -59,7 +59,7 @@ public class authorization {
                     info.CitizenNumber = rs.getString(6);
                     stm = (PreparedStatement) connect.connection.prepareStatement("SELECT P.PermName, P.PermLink, PermVisual, PermSet FROM UserPerms UP  " 
                             + "INNER JOIN Perms P ON P.PermId = UP.PermissionId "
-                            + "WHERE UserIdNum=?");
+                            + "INNER JOIN Users U ON U.UserType=UP.UserTypeId AND U.PersonId=?");
                     stm.setInt(1, info.PersonInfoId);
                     info.UserPerms = stm.executeQuery();
                     result =  "Sablon";
