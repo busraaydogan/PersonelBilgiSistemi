@@ -19,6 +19,7 @@ public class ConnectionClass {
     public ConnectionClass() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
+            String a = "";
             this.connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/employeeinfosystem?user=root");
         } catch (Exception err) {
             System.out.println(err.toString());
@@ -27,3 +28,4 @@ public class ConnectionClass {
     
     
 }
+
