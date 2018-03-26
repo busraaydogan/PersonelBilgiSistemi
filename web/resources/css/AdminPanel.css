@@ -1,0 +1,15 @@
+.FormDiv{
+        width:800px;
+         float:left;
+}
+.ButtonDiv{
+	padding:20px 20px 5px 10px;
+        width:300px;
+        float:left;
+}
+.formText{
+    margin-left: 4px;
+}
+.btnproperties{
+    margin-right: 2px;
+}

@@ -5,13 +5,16 @@
  */
 package controller;
 
-import Entitiy.LoginUserInfo;
-import Util.ConnectionClass;
-import com.mysql.jdbc.PreparedStatement;
-import java.sql.ResultSet;
+
+import dao.Authoration;
+import entity.LoginUserInfo;
+import entity.Perms;
+import java.io.Serializable;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.inject.Named;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -19,61 +22,82 @@ import javax.inject.Named;
  */
 @ManagedBean(name="auth")
 @SessionScoped
-public class authorization {
+public class authorization implements Serializable {
 
     public LoginUserInfo getInfo() {
         return info;
     }
    
-   public LoginUserInfo info;    
-   public ViewController view;
-   
+   private LoginUserInfo info;    
+   private boolean WrongPass=false;
+   private Authoration auth = new Authoration();
     public authorization(){
         info = new LoginUserInfo();
-        view = new ViewController();
-        info.username="";
-        info.password="";
     }
-
+    public boolean isAuthorized2Visual(String ScreenCode)
+    {
+        boolean result = false;
+        List<Perms> tmp = info.getUser().getUserType().getGroupPerms();
+        for(int i = 0; i < tmp.size(); i++)
+        {
+            if(tmp.get(i).getPerm().ScreenCode.equalsIgnoreCase(ScreenCode))
+            {
+                result= tmp.get(i).isPermVisual();
+            }
+        }
+       return result;  
+    }
+    public boolean isAuthorized2Set(String ScreenCode)
+    {
+        boolean result = false;
+        List<Perms> tmp = info.getUser().getUserType().getGroupPerms();
+        for(int i = 0; i < tmp.size(); i++)
+        {
+            if(tmp.get(i).getPerm().ScreenCode.equalsIgnoreCase(ScreenCode))
+            {
+                result= tmp.get(i).isPermSet();
+            }
+        }
+       return result;  
+    }
    
     // if auth result isnt success, PersonInfo etc. wont defined.
     public String getAuthorized(){
         String result = "index";
-        try{
-             ConnectionClass connect = new ConnectionClass();
-            PreparedStatement  stm = (PreparedStatement) connect.connection.prepareStatement("SELECT UserType, UserId, PersonId, EName, ESurname, CitizensShipNumber FROM Users U "
-                    + "inner join PErsonalInfo PI on PI.PInfoId = U.PersonId "
-                    + " WHERE Username=? AND Password=?");
-            stm.setString(1,info.username);
-            stm.setString(2,info.password);
-            ResultSet rs = stm.executeQuery();
-            while(rs.next())
-            {
-                    stm.clearParameters();
-                    info.authStatus = true;
-                    info.UserType = rs.getInt(1);
-                    info.UserId = rs.getInt(2);
-                    info.PersonInfoId = rs.getInt(3);
-                    info.Name = rs.getString(4);
-                    info.Surname = rs.getString(5);
-                    info.CitizenNumber = rs.getString(6);
-                    stm = (PreparedStatement) connect.connection.prepareStatement("SELECT P.PermName, P.PermLink, PermVisual, PermSet FROM UserPerms UP  " 
-                            + "INNER JOIN Perms P ON P.PermId = UP.PermissionId "
-                            + "INNER JOIN Users U ON U.UserType=UP.UserTypeId AND U.PersonId=?");
-                    stm.setInt(1, info.PersonInfoId);
-                    info.UserPerms = stm.executeQuery();
-                    result =  "Sablon";
-                    view.view(info);
-            }
-        } catch (Exception ex)
+        info = auth.getAuthorize(info);
+        if(info.isAuthStatus())
         {
-           ex.printStackTrace();
+            result = "main";
         }
+        else {
+                WrongPass=!info.isAuthStatus();
+             }
+                
         return result;
     }
-
-    public ViewController getView() {
-        return view;
+    public String Logout()
+    {
+         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+         info = new LoginUserInfo();
+         return  "/index?faces-redirect=true";
     }
-
+    public boolean isWrongPass() {
+        return WrongPass;
+    }
+    public String getCurrentRowStyle(String current)
+    {
+        String viewId = ((HttpServletRequest) FacesContext.getCurrentInstance() 
+ .getExternalContext().getRequest()).getRequestURI(); 
+        String tmp[] = viewId.split("/");
+        current =   "/" + tmp[1] + "/" + tmp[2] + current +".xhtml";
+        /*System.out.println(current +"-" + viewId);
+        System.out.println(current.equalsIgnoreCase(viewId));*/
+        if(current.equalsIgnoreCase(viewId))
+        {
+            return  "background-color:#9999ff";
+        }
+        else{
+              return "";
+        }
+    }
 }

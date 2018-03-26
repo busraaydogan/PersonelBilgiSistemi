@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="title">
+       Grupların Yetiklerini Düzenle
+    </ui:define>
+
+    <ui:define name="content">
+        <div style="float:left">
+        <h:form>
+            <h:dataTable class="table table-striped" border="1" width="600"  value="#{AdminPage_UserGroupPerms.getPermList(AdminPage_UserGroups.currentGroup4Perm)}"  var="perm">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{perm.perm.permId}
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">Ekran Kodu</f:facet>
+                        #{perm.perm.screenCode}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Yetki Adı</f:facet>
+                        #{perm.perm.permName}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Görüntüle</f:facet>
+                    <h:selectBooleanCheckbox rendered="#{AdminPage_UserGroupPerms.isAddActive(perm)}" value="#{AdminPage_UserGroupPerms.current.permVisual}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Düzenle</f:facet>
+                    <h:selectBooleanCheckbox  rendered="#{AdminPage_UserGroupPerms.isAddActive(perm)}" value="#{AdminPage_UserGroupPerms.current.permSet}">
+
+                    </h:selectBooleanCheckbox>
+                </h:column>
+                <h:column>
+                    <center>
+                        <f:facet name="header">İşlemler</f:facet>
+                        <div class="btn-group">
+                            <h:commandButton rendered="#{AdminPage_UserGroupPerms.isAddActive(perm)}" class="btn btn-info" type="submit" action="#{AdminPage_UserGroupPerms.setPermtoGroup()}" value="Yetkiyi Gruba Tanımla"></h:commandButton>
+                            <h:commandButton rendered="#{AdminPage_UserGroupPerms.isSelectActive()}" class="btn btn-info" type="submit" action="#{AdminPage_UserGroupPerms.setCurrent(perm)}" value="Yetkiyi Seç"></h:commandButton>
+
+
+                        </div>
+                    </center>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        </div>
+        <div style="margin-left: 25px; float:left">
+            <h:form>
+                <h:dataTable class="table table-dark table-striped" border="1" width="600"  value="#{AdminPage_UserGroups.currentGroup4Perm.groupPerms}"  var="perm">
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                            #{perm.perm.permId}
+                    </h:column>
+                     <h:column>
+                    <f:facet name="header">Ekran Kodu</f:facet>
+                        #{perm.perm.screenCode}
+                </h:column>6
+                    <h:column>
+                        <f:facet name="header">Yetki Adı</f:facet>
+                            #{perm.perm.permName}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Görüntüle</f:facet>
+                        <h:selectBooleanCheckbox disabled="true" value="#{perm.permVisual}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Düzenle</f:facet>
+                        <h:selectBooleanCheckbox disabled="true" value="#{perm.permSet}"/>
+                    </h:column>
+                    <h:column>
+                        <center>
+                            <f:facet name="header">İşlemler</f:facet>
+                            <div class="btn-group">
+                                <h:commandButton class="btn btn-info" type="submit" action="#{AdminPage_UserGroupPerms.deletePermFromGroup(perm)}" value="Yetkiyi Gruptan Sil"></h:commandButton>
+                            </div>
+                        </center>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+
+    </ui:define>
+</ui:composition>

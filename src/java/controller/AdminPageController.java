@@ -5,8 +5,8 @@
  */
 package controller;
 
-import Entitiy.AdminPage;
-import Util.ConnectionClass;
+import entity.AdminPage;
+import util.ConnectionClass;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import javax.faces.bean.SessionScoped;
